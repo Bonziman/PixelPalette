@@ -1,25 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const GalleryViewer = () => {
-    const [gallery, setGallery] = useState([]);
-
-    useEffect(() => {
-        const fetchGallery = async () => {
-            const response = await axios.get('/api/gallery');
-            setGallery(response.data);
-        };
-
-        fetchGallery();
-    }, []);
-
+const GalleryViewer = ({ gallery }) => {
     return (
         <div>
             <h2>Gallery Viewer</h2>
-            <div>
+            <div className="gallery">
                 {gallery.map(art => (
-                    <div key={art.id}>
+                    <div key={art.id} className="gallery-item">
                         <img src={art.imageUrl} alt="Pixel Art" />
+                        <button onClick={() => handleDelete(art.id)} className="delete-button">Delete</button>
                     </div>
                 ))}
             </div>

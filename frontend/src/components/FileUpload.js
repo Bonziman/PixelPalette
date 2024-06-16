@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const FileUpload = () => {
+const FileUpload = ({ setImageUrl }) => {
     const [file, setFile] = useState(null);
-    const [message, setMessage] = useState('');
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -20,10 +19,10 @@ const FileUpload = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            setMessage('File uploaded successfully: ' + response.data.pixelArtUrl);
+            setImageUrl(response.data.pixelArtUrl);
+            await axios.post('/api/save', { image_url: response.data.pixelArtUrl });
         } catch (error) {
-            console.error('Error uploading file:', error);
-            setMessage('Error uploading file');
+            console.error('Error uploading or saving file:', error);
         }
     };
 
@@ -34,7 +33,6 @@ const FileUpload = () => {
                 <input type="file" onChange={handleFileChange} />
                 <button type="submit">Upload</button>
             </form>
-            {message && <p>{message}</p>}
         </div>
     );
 };

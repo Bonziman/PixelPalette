@@ -1,6 +1,6 @@
-#!/usr/bin/python3
-from app import app, db
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 class PixelArt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,7 +11,3 @@ class ColorPalette(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     colors = db.Column(db.Text, nullable=False)
-
-# create the databes and tables
-with app.app_context():
-    db.create_all()

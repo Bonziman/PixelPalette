@@ -4,7 +4,11 @@ const PixelArtViewer = ({ imageUrl }) => {
     return (
         <div>
             <h2>Pixel Art Viewer</h2>
-            <img src={imageUrl} alt="Pixel Art" />
+            {imageUrl ? (
+                <img src={imageUrl} alt="Pixel Art" />
+            ) : (
+                <p>No pixel art to display.</p>
+            )}
         </div>
     );
 };
