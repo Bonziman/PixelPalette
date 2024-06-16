@@ -1,18 +1,22 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
-from flask import Flask, request, jsonify, send_from_directory
-from PIL import Image
+from flask import Flask, request, jsonify, send_from_directory, Response, send_file
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 import os
-from models import db, PixelArt, ColorPalette  # Import models
-import base64
+import requests
+from PIL import Image
 from io import BytesIO
+import base64
 import time
+from models import db, PixelArt, ColorPalette
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
+CORS(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pixelpalette.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)  # Initialize db with app
+db.init_app(app)
 
 UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
@@ -21,8 +25,8 @@ if not os.path.exists(UPLOAD_FOLDER):
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
-def home():
-    return "Hello, PixelPalette!"
+def index():
+    return send_file(app.static_folder + '/index.html')
 
 @app.route('/api/upload', methods=['POST'])
 def upload_image():
@@ -40,7 +44,7 @@ def upload_image():
         pixel_art_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'pixel_' + file.filename)
         pixel_art.save(pixel_art_filepath)
         return jsonify({'pixelArtUrl': '/uploads/' + 'pixel_' + file.filename}), 201
-    
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
@@ -95,6 +99,10 @@ def delete_pixel_art(id):
         return jsonify({'message': 'Pixel art deleted'}), 200
     else:
         return jsonify({'error': 'Pixel art not found'}), 404
+
+@app.errorhandler(404)
+def not_found(e):
+    return send_file(app.static_folder + '/index.html')
 
 if __name__ == '__main__':
     with app.app_context():
