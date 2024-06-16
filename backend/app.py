@@ -84,7 +84,6 @@ def get_gallery():
 def delete_pixel_art(id):
     art = PixelArt.query.get(id)
     if art:
-        # Delete the file from the uploads folder
         try:
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(art.image_url))
             if os.path.exists(filepath):

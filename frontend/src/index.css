@@ -69,3 +69,8 @@ img {
 .delete-button:hover {
   background-color: darkred;
 }
+.cursor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1000;
+}

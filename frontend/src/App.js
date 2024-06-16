@@ -34,7 +34,7 @@ function App() {
             <PixelArtEditor onArtSaved={handleArtSaved} />
             <PixelArtViewer imageUrl={imageUrl} />
             <ColorPaletteSelector palettes={[]} onSelectPalette={() => {}} />
-            <GalleryViewer gallery={gallery} />
+            <GalleryViewer gallery={gallery} fetchGallery={fetchGallery} />
         </div>
     );
 }
