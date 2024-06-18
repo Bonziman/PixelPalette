@@ -92,3 +92,151 @@ img {
   outline: none;
   color: #0056b3;
 }
+.pixel-art-editor {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.save-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
+
+.grid-size-select {
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.tools {
+  margin-bottom: 20px;
+}
+
+.tool-button {
+  margin-right: 5px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tool-button.active {
+  background-color: #ddd;
+}
+
+.tool-button:hover {
+  background-color: #ccc;
+}
+
+.grid {
+  position: relative;
+}
+
+.grid-cell {
+  cursor: pointer;
+}
+
+.cursor {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.pixel-art-editor {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.save-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
+
+.grid-size-select {
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.tools {
+  margin-bottom: 20px;
+}
+
+.tool-button {
+  margin-right: 5px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tool-button.active {
+  background-color: #ddd;
+}
+
+.tool-button:hover {
+  background-color: #ccc;
+}
+
+.grid {
+  position: relative;
+}
+
+.grid-cell {
+  cursor: pointer;
+}
+
+.cursor {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.brush-cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.rectangle-cursor {
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.circle-cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+.grid.brush-tool-active .grid-cell {
+  cursor: none;
+}
+

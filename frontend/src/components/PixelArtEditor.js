@@ -4,6 +4,7 @@ import { SketchPicker } from 'react-color';
 import { FaBrush, FaSquare, FaCircle } from 'react-icons/fa';
 import { colors } from './theme';
 
+
 const PixelArtEditor = ({ onArtSaved }) => {
     const [gridSize, setGridSize] = useState(50);
     const [grid, setGrid] = useState(Array(50).fill().map(() => Array(50).fill(colors.white)));
@@ -71,7 +72,7 @@ const PixelArtEditor = ({ onArtSaved }) => {
         const ctx = canvas.getContext('2d');
 
         const cellSize = 1080 / gridSize;
-        const overlap = 0.5; // Slight overlap to avoid thin lines
+        const overlap = 0.9; // Slight overlap to avoid thin lines
 
         grid.forEach((row, rowIndex) => {
             row.forEach((color, colIndex) => {
@@ -129,6 +130,7 @@ const PixelArtEditor = ({ onArtSaved }) => {
             cursor.style.height = `${brushSize * (1080 / gridSize)}px`;
             cursor.style.marginLeft = `-${(brushSize * (1080 / gridSize)) / 2}px`;
             cursor.style.marginTop = `-${(brushSize * (1080 / gridSize)) / 2}px`;
+            cursor.style.display = cursorVisible ? 'block' : 'none';
         }
     }, [tool, brushSize, gridSize]);
 
@@ -136,12 +138,12 @@ const PixelArtEditor = ({ onArtSaved }) => {
     const gridWidth = gridSize * cellSize;
 
     return (
-        <div>
+        <div className="pixel-art-editor">
             <h2>Pixel Art Editor</h2>
-            <div>
+            <div className="editor-toolbar">
                 <SketchPicker color={selectedColor} onChangeComplete={(color) => setSelectedColor(color.hex)} />
-                <button onClick={handleSave}>Save Pixel Art</button>
-                <select onChange={handleGridSizeChange} value={gridSize}>
+                <button className="save-button" onClick={handleSave}>Save Pixel Art</button>
+                <select className="grid-size-select" onChange={handleGridSizeChange} value={gridSize}>
                     <option value={50}>50x50</option>
                     <option value={100}>100x100</option>
                     <option value={36}>36x36</option>
@@ -158,12 +160,13 @@ const PixelArtEditor = ({ onArtSaved }) => {
                         max={Math.min(gridSize, gridSize)}
                     />
                 </label>
-                <button onClick={() => setTool('brush')}><FaBrush /></button>
-                <button onClick={() => setTool('rectangle')}><FaSquare /></button>
-                <button onClick={() => setTool('circle')}><FaCircle /></button>
+                <button className={`tool-button ${tool === 'brush' ? 'active' : ''}`} onClick={() => setTool('brush')}><FaBrush /></button>
+                <button className={`tool-button ${tool === 'rectangle' ? 'active' : ''}`} onClick={() => setTool('rectangle')}><FaSquare /></button>
+                <button className={`tool-button ${tool === 'circle' ? 'active' : ''}`} onClick={() => setTool('circle')}><FaCircle /></button>
             </div>
             <div
                 ref={gridRef}
+                className="grid"
                 style={{
                     display: 'grid',
                     gridTemplateColumns: `repeat(${gridSize}, ${cellSize}px)`,
@@ -177,6 +180,7 @@ const PixelArtEditor = ({ onArtSaved }) => {
                     row.map((cell, colIndex) => (
                         <div
                             key={`${rowIndex}-${colIndex}`}
+                            className="grid-cell"
                             style={{
                                 width: `${cellSize}px`, // Adjust the cell size here
                                 height: `${cellSize}px`, // Adjust the cell size here
